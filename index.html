@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALAYA - Energy Sector Legal Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>ALAYA</h1>
+                <p>Legal Pressures Tracker</p>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active">Dashboard</li>
+                    <li>Supreme Court</li>
+                    <li>High Courts</li>
+                    <li>Regulations</li>
+                    <li>Analytics</li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header>
+                <h2>Renewable Energy Sector Cases & Regulations</h2>
+                <div class="user-profile">Admin</div>
+            </header>
+
+            <section class="summary-grid">
+                <div class="card stat-card">
+                    <h3>Pending Cases</h3>
+                    <p class="stat-number">24</p>
+                    <span class="trend up">+4 this week</span>
+                </div>
+                <div class="card stat-card">
+                    <h3>Supreme Court</h3>
+                    <p class="stat-number">8</p>
+                </div>
+                <div class="card stat-card">
+                    <h3>High Courts</h3>
+                    <p class="stat-number">12</p>
+                </div>
+                <div class="card stat-card">
+                    <h3>Tribunals (APTEL)</h3>
+                    <p class="stat-number">4</p>
+                </div>
+            </section>
+
+            <section class="recent-cases">
+                <h3 class="section-title">Recent Developments</h3>
+                <div class="case-list" id="case-list">
+                    <!-- Cases injected via JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
