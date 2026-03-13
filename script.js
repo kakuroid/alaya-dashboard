@@ -713,105 +713,79 @@ function setLastUpdated() {
     }
 }
 
-// ═══════ GEOSPATIAL INTELLIGENCE (CESIUM) ═══════
-let cesiumViewer = null;
+// ═══════ GEOSPATIAL INTELLIGENCE (LEAFLET) ═══════
+let leafletMap = null;
+let mapMarkers = [];
 
-async function initGeospatial() {
-    const section = document.getElementById('geospatial');
-    if (!section) return;
+function initGeospatial() {
+    const mapEl = document.getElementById('leafletMap');
+    if (!mapEl) return;
 
-    // Initialize Cesium Viewer with OpenStreetMap and zero Ion dependencies
-    try {
-        cesiumViewer = new Cesium.Viewer('cesiumContainer', {
-            imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-                url: 'https://a.tile.openstreetmap.org/'
-            }),
-            terrainProvider: new Cesium.EllipsoidTerrainProvider(),
-            baseLayerPicker: false,
-            geocoder: false,
-            animation: false,
-            timeline: false,
-            homeButton: false,
-            navigationHelpButton: false,
-            sceneModePicker: false,
-            selectionIndicator: false,
-            infoBox: false,
-            fullscreenButton: false,
-            vrButton: false,
-            creditContainer: document.createElement('div') // Hide credits to avoid Ion hits
-        });
-        
-        // Ensure Ion is not called
-        Cesium.Ion.defaultAccessToken = '';
-    } catch (e) {
-        console.error("Cesium Init Error:", e);
-    }
+    // Use CartoDB Dark Matter for that premium dark look
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const tileUrl = isLight 
+        ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
-    // Custom pins for CERC Lens
+    leafletMap = L.map('leafletMap', {
+        center: [20.5937, 78.9629],
+        zoom: 5,
+        zoomControl: false,
+        attributionControl: false
+    });
+
+    L.tileLayer(tileUrl, {
+        maxZoom: 19,
+        subdomains: 'abcd'
+    }).addTo(leafletMap);
+
+    // Initial India fly-to
     initMapMarkers();
     initMapControls();
+
+    // Re-init tiles on theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const nextLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const nextUrl = nextLight
+            ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+            : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+        
+        leafletMap.eachLayer((layer) => {
+            if (layer._url) {
+                layer.setUrl(nextUrl);
+            }
+        });
+    });
 }
 
 function initMapMarkers() {
-    if (!cesiumViewer) return;
+    if (!leafletMap) return;
 
-    // India Macro Points (States with high regulatory/market activity)
-    const indiaPoints = [
-        { name: 'Gujarat', pos: [71.1924, 22.2587], rpo: '22.4%', tariff: '₹2.80', note: 'Global Solar Leader' },
-        { name: 'Rajasthan', pos: [73.8474, 27.0238], rpo: '26.2%', tariff: '₹2.40', note: 'Highest Installed Capacity' },
-        { name: 'Andhra Pradesh', pos: [79.74, 15.91], rpo: '19.8%', tariff: '₹3.10', note: 'Wind Energy Hub' },
-        { name: 'Karnataka', pos: [75.71, 15.31], rpo: '28.1%', tariff: '₹2.95', note: 'Market Integration Leader' }
+    const locations = [
+        { name: 'Gujarat', pos: [22.2587, 71.1924], rpo: '22.4%', tariff: '₹2.80', note: 'Policy Stability Index High', category: 'india' },
+        { name: 'Rajasthan', pos: [27.0238, 73.8474], rpo: '26.2%', tariff: '₹2.40', note: 'Transmission Corridor Focus', category: 'india' },
+        { name: 'Bhadla Solar Park', pos: [27.5, 72.3], rpo: 'N/A', tariff: '₹2.44', note: 'Micro-Grid Stability Check', category: 'parks' },
+        { name: 'Pavagada Solar Park', pos: [14.2, 77.4], rpo: 'N/A', tariff: '₹2.90', note: 'Inter-state Connectivity', category: 'parks' },
+        { name: 'Germany', pos: [51.16, 10.45], rpo: '42.0%', tariff: '€0.06', note: 'Global Transition Benchmark', category: 'global' },
+        { name: 'California', pos: [36.77, -119.41], rpo: '33.0%', tariff: '$0.08', note: 'Real-time Market Insights', category: 'global' }
     ];
 
-    // Global Perspective
-    const globalPoints = [
-        { name: 'Germany', pos: [10.45, 51.16], rpo: '42.0%', tariff: '€0.06', note: 'Energiewende Benchmark' },
-        { name: 'China', pos: [104.19, 35.86], rpo: '29.0%', tariff: '$0.04', note: 'Production Scale Master' },
-        { name: 'USA (California)', pos: [-119.41, 36.77], rpo: '33.0%', tariff: '$0.08', note: 'Dynamic Pricing Leader' }
-    ];
+    locations.forEach(loc => {
+        const color = loc.category === 'india' ? '#FFD700' : (loc.category === 'parks' ? '#55efc4' : '#6c5ce7');
+        const marker = L.circleMarker(loc.pos, {
+            radius: 8,
+            fillColor: color,
+            color: '#fff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.8
+        }).addTo(leafletMap);
 
-    // RE Parks (Micro)
-    const parkPoints = [
-        { name: 'Bhadla Solar Park', pos: [72.3, 27.5], cap: '2.2 GW', note: 'Worlds Largest Solar Park' },
-        { name: 'Pavagada Solar Park', pos: [77.4, 14.2], cap: '2.0 GW', note: 'Critical Grid Node' }
-    ];
-
-    // Functions to fly to regions
-    window.flyToIndia = () => {
-        cesiumViewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(78.9629, 20.5937, 5000000)
+        marker.bindPopup(`<strong>${loc.name}</strong><br>${loc.note}`);
+        marker.on('click', () => {
+            showMapInsights(loc.name, loc.note, loc.rpo, loc.tariff);
         });
-        showMapInsights('Central India', 'Regulatory focus on Inter-state Transmission (ISTS)', '21.0%', '₹2.90');
-    };
-
-    window.flyToGlobal = () => {
-        cesiumViewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(10, 30, 15000000)
-        });
-        showMapInsights('Global Market', 'Insights from leading energy transition economies.', '35.0%', '$0.05');
-    };
-
-    // Add entities
-    indiaPoints.forEach(p => addMapEntity(p, 'india', Cesium.Color.GOLD));
-    globalPoints.forEach(p => addMapEntity(p, 'global', Cesium.Color.BLUEVIOLET));
-    parkPoints.forEach(p => addMapEntity(p, 'parks', Cesium.Color.SPRINGGREEN));
-
-    // Default start
-    setTimeout(window.flyToIndia, 1000);
-}
-
-function addMapEntity(data, type, color) {
-    cesiumViewer.entities.add({
-        position: Cesium.Cartesian3.fromDegrees(data.pos[0], data.pos[1], 100),
-        name: data.name,
-        type: type,
-        description: `<strong>${data.name}</strong><br>${data.note}`,
-        point: {
-            pixelSize: 10,
-            color: color,
-            outlineColor: Cesium.Color.WHITE,
-            outlineWidth: 2
-        }
+        mapMarkers.push({ marker, category: loc.category });
     });
 }
 
@@ -823,41 +797,28 @@ function initMapControls() {
             btn.classList.add('active');
             const view = btn.getAttribute('data-map-view');
 
-            if (view === 'india') window.flyToIndia();
-            if (view === 'global') window.flyToGlobal();
-            if (view === 'parks') {
-                cesiumViewer.camera.flyTo({
-                    destination: Cesium.Cartesian3.fromDegrees(72.5, 27.5, 200000)
-                });
-                showMapInsights('Bhadla Complex', 'Investigating curtailment trends in Western India.', '23.5%', '₹2.44');
+            if (view === 'india') {
+                leafletMap.flyTo([20.5937, 78.9629], 5);
+                showMapInsights('National Grid', 'Focus on Green Energy Corridors (GEC) implementation.', '21.0%', '₹2.90');
+            } else if (view === 'global') {
+                leafletMap.flyTo([20, 0], 2);
+                showMapInsights('Global Market', 'Cross-continental energy market synchronization benchmarks.', '35.0%', '$0.05');
+            } else if (view === 'parks') {
+                leafletMap.flyTo([25, 75], 6);
+                showMapInsights('RE Complexes', 'Micro-analysis of major RE parks in Western India.', '23.5%', '₹2.44');
             }
         });
     });
-
-    // Click handler for entities
-    const handler = new Cesium.ScreenSpaceEventHandler(cesiumViewer.scene.canvas);
-    handler.setInputAction((click) => {
-        const picked = cesiumViewer.scene.pick(click.position);
-        if (Cesium.defined(picked)) {
-            const entity = picked.id;
-            const name = entity.name;
-            // Find data
-            const all = [...[
-                { name: 'Gujarat', rpo: '22.4%', tariff: '₹2.80', note: 'Global Solar Leader' },
-                { name: 'Rajasthan', rpo: '26.2%', tariff: '₹2.40', note: 'Highest Installed Capacity' },
-                { name: 'Bhadla Solar Park', rpo: 'N/A', tariff: '₹2.44', note: 'Critical Curtailment Monitoring' }
-            ]];
-            const found = all.find(x => x.name === name);
-            if (found) {
-                showMapInsights(found.name, found.note, found.rpo, found.tariff);
-            }
-        }
-    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 }
 
 function showMapInsights(title, text, rpo, tariff) {
-    document.querySelector('#map-info-panel h3').textContent = title;
-    document.querySelector('#map-insight-text').textContent = text;
-    document.getElementById('i-rpo').textContent = rpo || '--';
-    document.getElementById('i-tariff').textContent = tariff || '--';
+    const h3 = document.querySelector('#map-info-panel h3');
+    const p = document.querySelector('#map-insight-text');
+    const rpoEl = document.getElementById('i-rpo');
+    const tariffEl = document.getElementById('i-tariff');
+    
+    if (h3) h3.textContent = title;
+    if (p) p.textContent = text;
+    if (rpoEl) rpoEl.textContent = rpo || '--';
+    if (tariffEl) tariffEl.textContent = tariff || '--';
 }
