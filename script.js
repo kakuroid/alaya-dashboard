@@ -720,23 +720,32 @@ async function initGeospatial() {
     const section = document.getElementById('geospatial');
     if (!section) return;
 
-    // Initialize Cesium Viewer with OpenStreetMap as default and explicitly disable Ion
-    cesiumViewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-            url: 'https://a.tile.openstreetmap.org/'
-        }),
-        baseLayerPicker: false,
-        geocoder: false,
-        requestRenderMode: true,
-        animation: false,
-        timeline: false,
-        homeButton: false,
-        navigationHelpButton: false,
-        sceneModePicker: false,
-        selectionIndicator: false,
-        infoBox: false,
-        terrainProvider: new Cesium.EllipsoidTerrainProvider() // Use flat ellipsoid to avoid Ion terrain fetch
-    });
+    // Initialize Cesium Viewer with OpenStreetMap and zero Ion dependencies
+    try {
+        cesiumViewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+                url: 'https://a.tile.openstreetmap.org/'
+            }),
+            terrainProvider: new Cesium.EllipsoidTerrainProvider(),
+            baseLayerPicker: false,
+            geocoder: false,
+            animation: false,
+            timeline: false,
+            homeButton: false,
+            navigationHelpButton: false,
+            sceneModePicker: false,
+            selectionIndicator: false,
+            infoBox: false,
+            fullscreenButton: false,
+            vrButton: false,
+            creditContainer: document.createElement('div') // Hide credits to avoid Ion hits
+        });
+        
+        // Ensure Ion is not called
+        Cesium.Ion.defaultAccessToken = '';
+    } catch (e) {
+        console.error("Cesium Init Error:", e);
+    }
 
     // Custom pins for CERC Lens
     initMapMarkers();
