@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALAYA | Energy Legal Intel</title>
+    <title>ALAYA | Energy Legal Intelligence Dashboard</title>
+    <meta name="description" content="Track legal pressures shaping India's energy markets — pending cases across Supreme Court, High Courts, APTEL, CERC with real-time regulatory intelligence.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+
     <div class="dashboard-container">
-        <aside class="sidebar">
+        <!-- ═══════ SIDEBAR ═══════ -->
+        <aside class="sidebar" id="sidebar">
             <div class="logo">
                 <h1>ALAYA</h1>
-                <p>Legal Pressures</p>
+                <p>Legal Intelligence</p>
             </div>
             <nav>
                 <ul id="nav-menu">
@@ -23,109 +28,188 @@
                         <span>⚖️</span> Legal Cases
                     </li>
                     <li data-section="regulations">
-                        <span>📝</span> Regulations
+                        <span>📜</span> Regulations
                     </li>
                     <li data-section="analytics">
                         <span>📈</span> Analytics
                     </li>
+                    <li data-section="energy">
+                        <span>⚡</span> Energy Data
+                    </li>
                 </ul>
             </nav>
+            <div class="sidebar-footer">
+                <div class="data-freshness">
+                    <span class="pulse-dot"></span>
+                    Data last updated: <span id="last-updated"></span>
+                </div>
+            </div>
         </aside>
-        
+
+        <!-- ═══════ MAIN CONTENT ═══════ -->
         <main class="main-content">
             <header>
                 <div>
                     <h2>Energy Sector Intelligence</h2>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Tracking 24 high-impact legal developments</p>
+                    <p class="subtitle" id="header-subtitle">Tracking legal developments across Indian energy markets</p>
                 </div>
-                <div class="user-profile">
-                    <span style="color: var(--success)">●</span>
-                    Admin Terminal
+                <div class="header-actions">
+                    <div class="user-profile">
+                        <span class="live-dot"></span>
+                        Live Dashboard
+                    </div>
                 </div>
             </header>
 
-            <!-- Dashboard View -->
+            <!-- ═══════ SEARCH & FILTERS ═══════ -->
+            <div class="search-container" id="search-container">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search cases, regulations, or keywords...">
+                </div>
+                <div class="filter-bar" id="filter-bar">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- ═══════ DASHBOARD VIEW ═══════ -->
             <section id="dashboard" class="view-section active">
-                <div class="summary-grid">
-                    <div class="card stat-card">
-                        <h3>Pending Cases</h3>
-                        <p class="stat-number">24</p>
-                        <span class="trend up">▲ +4 this week</span>
-                    </div>
-                    <div class="card stat-card">
-                        <h3>Supreme Court</h3>
-                        <p class="stat-number">08</p>
-                        <span class="trend" style="color: var(--text-secondary)">6 Critical</span>
-                    </div>
-                    <div class="card stat-card">
-                        <h3>High Courts</h3>
-                        <p class="stat-number">12</p>
-                        <span class="trend" style="color: var(--text-secondary)">8 Stay Orders</span>
-                    </div>
-                    <div class="card stat-card">
-                        <h3>APTEL</h3>
-                        <p class="stat-number">04</p>
-                        <span class="trend" style="color: var(--text-secondary)">2 Tariff Disputes</span>
-                    </div>
+                <div class="stat-grid" id="stat-grid">
+                    <!-- Populated by JS -->
                 </div>
 
-                <div class="recent-cases">
+                <div class="section-header">
                     <div class="section-title">
-                        <span>Recent Developments</span>
-                        <button style="background: none; border: 1px solid var(--border-color); color: var(--text-primary); padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">View All</button>
+                        Recent Developments
+                        <span class="count-badge" id="recent-count"></span>
                     </div>
-                    <div class="case-list" id="recent-case-list">
-                        <!-- Injected via JS -->
-                    </div>
+                    <button class="view-all-btn" id="view-all-cases">View All →</button>
+                </div>
+                <div class="case-list" id="recent-case-list">
+                    <!-- Populated by JS -->
                 </div>
             </section>
 
-            <!-- Cases View -->
+            <!-- ═══════ CASES VIEW ═══════ -->
             <section id="cases" class="view-section">
-                <div class="section-title">All Legal Proceedings</div>
+                <div class="section-header">
+                    <div class="section-title">
+                        All Legal Proceedings
+                        <span class="count-badge" id="total-case-count"></span>
+                    </div>
+                </div>
                 <div class="case-list" id="all-case-list">
-                    <!-- Injected via JS -->
+                    <!-- Populated by JS -->
                 </div>
             </section>
 
-            <!-- Regulations View -->
+            <!-- ═══════ REGULATIONS VIEW ═══════ -->
             <section id="regulations" class="view-section">
-                <div class="section-title">Regulatory Milestones</div>
-                <div class="case-list" id="regulation-list">
-                    <!-- Similar to cases, injected via JS -->
+                <div class="section-header">
+                    <div class="section-title">
+                        Regulatory Timeline
+                        <span class="count-badge" id="reg-count"></span>
+                    </div>
+                </div>
+                <div class="timeline" id="regulation-timeline">
+                    <!-- Populated by JS -->
                 </div>
             </section>
 
-            <!-- Analytics View -->
+            <!-- ═══════ ANALYTICS VIEW ═══════ -->
             <section id="analytics" class="view-section">
-                <div class="section-title">Market Pressure Analytics</div>
-                <div class="summary-grid">
-                    <div class="card" style="grid-column: span 2;">
-                        <h3>Volume Trend</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Court Distribution</h3>
+                            <span class="card-label">By Forum</span>
+                        </div>
                         <div class="chart-container">
-                            <div class="chart-bars">
-                                <div class="bar" style="height: 40%"></div>
-                                <div class="bar" style="height: 60%"></div>
-                                <div class="bar" style="height: 35%"></div>
-                                <div class="bar" style="height: 85%"></div>
-                                <div class="bar" style="height: 50%"></div>
-                                <div class="bar" style="height: 75%"></div>
-                                <div class="bar" style="height: 95%"></div>
+                            <div class="donut-chart-wrapper" id="court-donut-wrapper">
+                                <!-- SVG donut + legend rendered by JS -->
                             </div>
                         </div>
                     </div>
                     <div class="card">
-                        <h3>Court Distribution</h3>
+                        <div class="card-header">
+                            <h3>Case Volume Trend</h3>
+                            <span class="card-label">Monthly filings</span>
+                        </div>
                         <div class="chart-container">
-                            <!-- Circular chart representation or similar -->
-                            <div style="width: 150px; height: 150px; border-radius: 50%; border: 15px solid var(--accent-color); border-top-color: var(--success); border-right-color: var(--warning);"></div>
+                            <div class="bar-chart-wrapper" id="volume-bar-chart">
+                                <!-- SVG bar chart rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Status Breakdown</h3>
+                            <span class="card-label">All Cases</span>
+                        </div>
+                        <div class="chart-container">
+                            <div class="donut-chart-wrapper" id="status-donut-wrapper">
+                                <!-- SVG donut + legend rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Category Heatmap</h3>
+                            <span class="card-label">By Issue Type</span>
+                        </div>
+                        <div class="chart-container">
+                            <div id="category-chart">
+                                <!-- Category bars rendered by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <!-- ═══════ ENERGY DATA VIEW ═══════ -->
+            <section id="energy" class="view-section">
+                <div class="energy-hero" id="energy-hero">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>RE Installation Progress</h3>
+                            <span class="card-label">2019 — 2026 (GW)</span>
+                        </div>
+                        <div class="chart-container">
+                            <div class="bar-chart-wrapper" id="energy-progress-chart">
+                                <!-- SVG bar chart rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>RPO Compliance</h3>
+                            <span class="card-label">Target: 21%</span>
+                        </div>
+                        <div class="chart-container">
+                            <div class="rpo-grid" id="rpo-grid">
+                                <!-- RPO compliance bars rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header mt-3">
+                    <div class="section-title">
+                        Top RE States
+                        <span class="count-badge">By Installed Capacity</span>
+                    </div>
+                </div>
+                <div class="case-list" id="state-list">
+                    <!-- State-wise data rendered as list by JS -->
+                </div>
+            </section>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-

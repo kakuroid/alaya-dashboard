@@ -1,0 +1,50 @@
+{
+  "lastUpdated": "2026-03-13",
+  "source": "MNRE / data.gov.in / CEA Monthly Reports",
+  "national": {
+    "totalRE": 203.18,
+    "solar": 82.63,
+    "wind": 47.24,
+    "smallHydro": 5.01,
+    "biomass": 10.94,
+    "largeHydro": 46.92,
+    "nuclear": 7.48,
+    "target2030": 500
+  },
+  "stateWise": [
+    { "state": "Rajasthan", "solar": 20.72, "wind": 4.34, "total": 25.06 },
+    { "state": "Gujarat", "solar": 12.48, "wind": 9.85, "total": 22.33 },
+    { "state": "Tamil Nadu", "solar": 7.12, "wind": 10.44, "total": 17.56 },
+    { "state": "Karnataka", "solar": 9.84, "wind": 5.21, "total": 15.05 },
+    { "state": "Andhra Pradesh", "solar": 5.14, "wind": 4.09, "total": 9.23 },
+    { "state": "Maharashtra", "solar": 4.26, "wind": 5.54, "total": 9.80 },
+    { "state": "Madhya Pradesh", "solar": 4.92, "wind": 2.85, "total": 7.77 },
+    { "state": "Uttar Pradesh", "solar": 3.87, "wind": 0.00, "total": 3.87 },
+    { "state": "Telangana", "solar": 4.56, "wind": 0.13, "total": 4.69 },
+    { "state": "Punjab", "solar": 1.84, "wind": 0.00, "total": 1.84 },
+    { "state": "Kerala", "solar": 0.72, "wind": 0.06, "total": 0.78 },
+    { "state": "Odisha", "solar": 0.68, "wind": 0.00, "total": 0.68 }
+  ],
+  "yearlyProgress": [
+    { "year": "2019", "installed": 86.32 },
+    { "year": "2020", "installed": 94.43 },
+    { "year": "2021", "installed": 104.87 },
+    { "year": "2022", "installed": 120.01 },
+    { "year": "2023", "installed": 143.64 },
+    { "year": "2024", "installed": 175.52 },
+    { "year": "2025", "installed": 196.38 },
+    { "year": "2026 (YTD)", "installed": 203.18 }
+  ],
+  "rpoCompliance": [
+    { "state": "Tamil Nadu", "target": 21.0, "achieved": 23.4 },
+    { "state": "Karnataka", "target": 21.0, "achieved": 28.1 },
+    { "state": "Gujarat", "target": 21.0, "achieved": 19.8 },
+    { "state": "Rajasthan", "target": 21.0, "achieved": 26.2 },
+    { "state": "Maharashtra", "target": 21.0, "achieved": 15.3 },
+    { "state": "Andhra Pradesh", "target": 21.0, "achieved": 18.7 },
+    { "state": "Madhya Pradesh", "target": 21.0, "achieved": 16.9 },
+    { "state": "Uttar Pradesh", "target": 21.0, "achieved": 8.4 },
+    { "state": "Telangana", "target": 21.0, "achieved": 17.2 },
+    { "state": "Punjab", "target": 21.0, "achieved": 11.6 }
+  ]
+}

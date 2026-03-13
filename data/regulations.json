@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "title": "Green Energy Open Access Rules, 2022",
+    "authority": "Ministry of Power",
+    "description": "Reduced open access transaction limit from 1 MW to 100 kW for green energy consumers; mandated time-bound approvals within 15 days",
+    "status": "Active",
+    "date": "2022-06-06",
+    "category": "Open Access",
+    "impact": "Landmark"
+  },
+  {
+    "id": 2,
+    "title": "CERC (Connectivity and GNA) Regulations, 2023",
+    "authority": "CERC",
+    "description": "Simplified General Network Access framework replacing long-term access; enables flexible transmission for RE generators",
+    "status": "Active",
+    "date": "2023-01-15",
+    "category": "Transmission",
+    "impact": "High"
+  },
+  {
+    "id": 3,
+    "title": "Renewable Purchase Obligation (RPO) Trajectory 2022–2030",
+    "authority": "Ministry of Power",
+    "description": "Mandated RPO targets rising to 43% by 2030 including energy storage obligation; separate solar, non-solar, and hydro RPO",
+    "status": "Active",
+    "date": "2022-07-22",
+    "category": "RPO",
+    "impact": "Landmark"
+  },
+  {
+    "id": 4,
+    "title": "National Green Hydrogen Mission",
+    "authority": "MNRE",
+    "description": "₹19,744 crore mission targeting 5 MMT annual green hydrogen production by 2030; includes SIGHT programme for electrolyzer manufacturing",
+    "status": "Active",
+    "date": "2023-01-04",
+    "category": "Hydrogen",
+    "impact": "Landmark"
+  },
+  {
+    "id": 5,
+    "title": "CERC DSM Regulations, 2022 (Amendment 2024)",
+    "authority": "CERC",
+    "description": "Revised deviation settlement mechanism with new penalty framework for renewable generators; introduced forecasting accuracy incentives",
+    "status": "Active",
+    "date": "2024-03-18",
+    "category": "Grid Operations",
+    "impact": "High"
+  },
+  {
+    "id": 6,
+    "title": "Energy Conservation (Amendment) Act, 2022",
+    "authority": "Parliament",
+    "description": "Introduced carbon credit trading, expanded energy conservation building code, mandated use of non-fossil energy sources",
+    "status": "Active",
+    "date": "2022-12-29",
+    "category": "Carbon Market",
+    "impact": "Landmark"
+  },
+  {
+    "id": 7,
+    "title": "PM-KUSUM Scheme — Phase II Extension",
+    "authority": "MNRE",
+    "description": "Extended deadline for Component-A (10 GW decentralized solar) and Component-C (solarization of agricultural pumps) to March 2026",
+    "status": "Active",
+    "date": "2024-06-15",
+    "category": "Solar",
+    "impact": "High"
+  },
+  {
+    "id": 8,
+    "title": "BCD on Solar Cells & Modules — 40%/25%",
+    "authority": "Ministry of Finance",
+    "description": "Basic Customs Duty of 40% on solar modules and 25% on solar cells effective April 2022; aimed at boosting domestic manufacturing",
+    "status": "Active",
+    "date": "2022-04-01",
+    "category": "Manufacturing",
+    "impact": "High"
+  },
+  {
+    "id": 9,
+    "title": "ISTS Charges Waiver Extension for RE Projects",
+    "authority": "Ministry of Power",
+    "description": "Extended inter-state transmission system charges and losses waiver for solar, wind, and hybrid projects commissioned before June 2025",
+    "status": "Active",
+    "date": "2023-12-20",
+    "category": "Transmission",
+    "impact": "High"
+  },
+  {
+    "id": 10,
+    "title": "Indian Carbon Market Rules, 2023 (Draft)",
+    "authority": "BEE / MoEFCC",
+    "description": "Draft framework for compliance and voluntary carbon credit market under Energy Conservation Act; designates BEE as administrator",
+    "status": "Draft",
+    "date": "2023-06-28",
+    "category": "Carbon Market",
+    "impact": "Landmark"
+  },
+  {
+    "id": 11,
+    "title": "Offshore Wind Energy Lease Rules, 2024",
+    "authority": "MNRE",
+    "description": "Framework for leasing seabed for offshore wind projects; 37 GW target along Gujarat and Tamil Nadu coasts",
+    "status": "Active",
+    "date": "2024-08-10",
+    "category": "Wind",
+    "impact": "High"
+  },
+  {
+    "id": 12,
+    "title": "Battery Energy Storage Systems (BESS) Guidelines",
+    "authority": "CERC",
+    "description": "Regulatory guidelines for grid-connected battery storage including tariff norms, performance standards, and ancillary services participation",
+    "status": "Draft",
+    "date": "2025-09-12",
+    "category": "Storage",
+    "impact": "High"
+  },
+  {
+    "id": 13,
+    "title": "National Electricity Plan 2023 — RE Integration",
+    "authority": "CEA",
+    "description": "Projected 500 GW non-fossil capacity by 2030; outlines transmission corridor expansion and flexible generation requirements",
+    "status": "Active",
+    "date": "2023-05-31",
+    "category": "Planning",
+    "impact": "Landmark"
+  },
+  {
+    "id": 14,
+    "title": "PLI Scheme — Solar PV Manufacturing (Tranche II)",
+    "authority": "MNRE",
+    "description": "₹19,500 crore incentive for integrated solar cell and module manufacturing with 65 GW fully integrated capacity target",
+    "status": "Active",
+    "date": "2023-09-20",
+    "category": "Manufacturing",
+    "impact": "High"
+  },
+  {
+    "id": 15,
+    "title": "CERC RE Tariff Regulations FY26–30",
+    "authority": "CERC",
+    "description": "New normative tariff framework for wind, solar, and hybrid projects including updated CUF benchmarks and O&M escalation norms",
+    "status": "Under Review",
+    "date": "2025-12-01",
+    "category": "Tariff",
+    "impact": "High"
+  }
+]
