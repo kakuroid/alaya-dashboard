@@ -762,18 +762,25 @@ function initMapMarkers() {
     if (!leafletMap) return;
 
     const locations = [
-        { name: 'Gujarat', pos: [22.2587, 71.1924], rpo: '22.4%', tariff: '₹2.80', note: 'Policy Stability Index High', category: 'india' },
-        { name: 'Rajasthan', pos: [27.0238, 73.8474], rpo: '26.2%', tariff: '₹2.40', note: 'Transmission Corridor Focus', category: 'india' },
+        { name: 'Gujarat', pos: [22.2587, 71.1924], rpo: '19.8%', tariff: '₹2.80', note: 'ALMM & Module Pricing Analysis', category: 'india' },
+        { name: 'Rajasthan', pos: [27.0238, 73.8474], rpo: '26.2%', tariff: '₹2.40', note: 'Transmission Corridor Focus (ISTS)', category: 'india' },
+        { name: 'Tamil Nadu', pos: [11.1271, 78.6569], rpo: '23.4%', tariff: '₹3.20', note: 'Wind Curtailment & Banking Issues', category: 'india' },
+        { name: 'Karnataka', pos: [15.3173, 75.7139], rpo: '28.1%', tariff: '₹2.95', note: 'Market Transition Hub (G-DAM)', category: 'india' },
+        { name: 'Maharashtra', pos: [19.7515, 75.7139], rpo: '15.3%', tariff: '₹3.90', note: 'Industrial Demand & Open Access', category: 'india' },
+        { name: 'Uttar Pradesh', pos: [26.8467, 80.9462], rpo: '8.4%', tariff: '₹3.40', note: 'Solar RPO Deficit & Pumped Hydro', category: 'india' },
+        { name: 'Madhya Pradesh', pos: [23.2599, 77.4126], rpo: '16.9%', tariff: '₹2.97', note: 'Rewa Solar Park - Grid Stability', category: 'india' },
+        
         { name: 'Bhadla Solar Park', pos: [27.5, 72.3], rpo: 'N/A', tariff: '₹2.44', note: 'Micro-Grid Stability Check', category: 'parks' },
-        { name: 'Pavagada Solar Park', pos: [14.2, 77.4], rpo: 'N/A', tariff: '₹2.90', note: 'Inter-state Connectivity', category: 'parks' },
+        { name: 'Pavagada Solar Park', pos: [14.1, 77.4], rpo: 'N/A', tariff: '₹2.90', note: 'Solar Intensity Benchmark', category: 'parks' },
+        
         { name: 'Germany', pos: [51.16, 10.45], rpo: '42.0%', tariff: '€0.06', note: 'Global Transition Benchmark', category: 'global' },
-        { name: 'California', pos: [36.77, -119.41], rpo: '33.0%', tariff: '$0.08', note: 'Real-time Market Insights', category: 'global' }
+        { name: 'California', pos: [36.77, -119.41], rpo: '33.0%', tariff: '$0.08', note: 'DSM and VPP Integration', category: 'global' }
     ];
 
     locations.forEach(loc => {
         const color = loc.category === 'india' ? '#FFD700' : (loc.category === 'parks' ? '#55efc4' : '#6c5ce7');
         const marker = L.circleMarker(loc.pos, {
-            radius: 8,
+            radius: loc.category === 'parks' ? 12 : 8,
             fillColor: color,
             color: '#fff',
             weight: 2,
