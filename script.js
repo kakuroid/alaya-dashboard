@@ -12,6 +12,7 @@ let searchQuery = '';
 
 // ═══════ INITIALIZATION ═══════
 document.addEventListener('DOMContentLoaded', async () => {
+    initTheme();
     await loadAllData();
     initNavigation();
     initSearch();
@@ -24,6 +25,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderEnergySection();
     setLastUpdated();
 });
+
+function initTheme() {
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    const savedTheme = localStorage.getItem('alaya-theme') || 'dark';
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    icon.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+    
+    toggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('alaya-theme', next);
+        icon.textContent = next === 'light' ? '☀️' : '🌙';
+        
+        // Refresh charts to pick up color changes
+        renderAnalytics();
+        renderEnergySection();
+    });
+}
+
 
 // ═══════ DATA LOADING ═══════
 async function loadAllData() {
@@ -269,7 +293,12 @@ function renderCourtDonut() {
 
     const entries = Object.entries(courtCounts).sort((a, b) => b[1] - a[1]);
     const total = casesData.length;
-    const colors = ['#6c5ce7', '#a29bfe', '#74b9ff', '#fd79a8', '#00cec9', '#fdcb6e', '#55efc4'];
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    
+    // Theme-aware palette
+    const colors = isLight 
+        ? ['#2B4C99', '#337AB7', '#FFD700', '#B45309', '#047857', '#1D4ED8', '#64748B']
+        : ['#6c5ce7', '#a29bfe', '#74b9ff', '#fd79a8', '#00cec9', '#fdcb6e', '#55efc4'];
 
     const size = 140;
     const cx = size / 2;
@@ -297,9 +326,10 @@ function renderCourtDonut() {
 
     wrapper.innerHTML = `
         <svg class="donut-chart" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+            <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="var(--surface-2)" stroke-width="${strokeWidth}" />
             ${segments.join('')}
-            <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="donut-center-text" font-size="22">${total}</text>
-            <text x="${cx}" y="${cy + 12}" text-anchor="middle" class="donut-center-label">Total</text>
+            <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="donut-center-text" font-size="22" fill="var(--text-primary)">${total}</text>
+            <text x="${cx}" y="${cy + 12}" text-anchor="middle" class="donut-center-label" fill="var(--text-secondary)">Total</text>
         </svg>
         <div class="chart-legend">${legend}</div>
     `;
@@ -314,12 +344,18 @@ function renderStatusDonut() {
 
     const entries = Object.entries(statusCounts).sort((a, b) => b[1] - a[1]);
     const total = casesData.length;
-    const statusColors = {
-        'Pending': '#fdcb6e',
-        'Resolved': '#00cec9',
-        'Under Review': '#74b9ff',
-        'Active': '#55efc4',
-        'Draft': '#b2bec3'
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    
+    // Use theme variables for status colors
+    const getStatusColor = (status) => {
+        const map = {
+            'Pending': isLight ? '#92400e' : '#fdcb6e',
+            'Resolved': isLight ? '#065f46' : '#00cec9',
+            'Under Review': isLight ? '#1e40af' : '#74b9ff',
+            'Active': isLight ? '#065f46' : '#55efc4',
+            'Draft': isLight ? '#374151' : '#b2bec3'
+        };
+        return map[status] || (isLight ? '#64748b' : '#636e72');
     };
 
     const size = 140;
@@ -333,7 +369,7 @@ function renderStatusDonut() {
     const segments = entries.map(([status, count]) => {
         const pct = count / total;
         const dashLen = pct * circumference;
-        const color = statusColors[status] || '#636e72';
+        const color = getStatusColor(status);
         const seg = `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-dasharray="${dashLen} ${circumference - dashLen}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" />`;
         offset += dashLen;
         return seg;
@@ -341,7 +377,7 @@ function renderStatusDonut() {
 
     const legend = entries.map(([status, count]) => `
         <div class="legend-item">
-            <span class="legend-dot" style="background: ${statusColors[status] || '#636e72'}"></span>
+            <span class="legend-dot" style="background: ${getStatusColor(status)}"></span>
             <span>${status}</span>
             <span class="legend-value">${count}</span>
         </div>
@@ -349,9 +385,10 @@ function renderStatusDonut() {
 
     wrapper.innerHTML = `
         <svg class="donut-chart" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+            <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="var(--surface-2)" stroke-width="${strokeWidth}" />
             ${segments.join('')}
-            <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="donut-center-text" font-size="22">${total}</text>
-            <text x="${cx}" y="${cy + 12}" text-anchor="middle" class="donut-center-label">Cases</text>
+            <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="donut-center-text" font-size="22" fill="var(--text-primary)">${total}</text>
+            <text x="${cx}" y="${cy + 12}" text-anchor="middle" class="donut-center-label" fill="var(--text-secondary)">Cases</text>
         </svg>
         <div class="chart-legend">${legend}</div>
     `;
@@ -392,12 +429,16 @@ function renderVolumeChart() {
         `;
     }).join('');
 
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const gradStart = isLight ? '#2B4C99' : '#6c5ce7';
+    const gradEnd = isLight ? '#4a69bd' : '#a29bfe';
+
     wrapper.innerHTML = `
         <svg class="bar-chart-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">
             <defs>
                 <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#6c5ce7" />
-                    <stop offset="100%" stop-color="#a29bfe" />
+                    <stop offset="0%" stop-color="${gradStart}" />
+                    <stop offset="100%" stop-color="${gradEnd}" />
                 </linearGradient>
             </defs>
             ${bars}
@@ -414,7 +455,12 @@ function renderCategoryChart() {
 
     const sorted = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
     const max = sorted[0]?.[1] || 1;
-    const colors = ['#6c5ce7', '#a29bfe', '#74b9ff', '#fd79a8', '#00cec9', '#fdcb6e', '#55efc4', '#fab1a0', '#81ecec', '#dfe6e9'];
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    
+    // Theme-aware palette for categories
+    const colors = isLight
+        ? ['#2B4C99', '#337AB7', '#4a69bd', '#1e40af', '#FFD700', '#B45309', '#047857']
+        : ['#6c5ce7', '#a29bfe', '#74b9ff', '#fd79a8', '#00cec9', '#fdcb6e', '#55efc4'];
 
     container.innerHTML = sorted.map(([cat, count], i) => `
         <div class="rpo-item" style="animation: fadeInUp 0.4s ${i * 0.05}s var(--ease-out) both;">
@@ -501,16 +547,22 @@ function renderEnergyProgressChart() {
         `;
     }).join('');
 
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const grad1Start = isLight ? '#047857' : '#00cec9';
+    const grad1End = isLight ? '#064e3b' : '#006c6a';
+    const grad2Start = isLight ? '#059669' : '#55efc4';
+    const grad2End = isLight ? '#047857' : '#00cec9';
+
     wrapper.innerHTML = `
         <svg class="bar-chart-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">
             <defs>
                 <linearGradient id="energyGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#00cec9" />
-                    <stop offset="100%" stop-color="#006c6a" />
+                    <stop offset="0%" stop-color="${grad1Start}" />
+                    <stop offset="100%" stop-color="${grad1End}" />
                 </linearGradient>
                 <linearGradient id="energyGradLive" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#55efc4" />
-                    <stop offset="100%" stop-color="#00cec9" />
+                    <stop offset="0%" stop-color="${grad2Start}" />
+                    <stop offset="100%" stop-color="${grad2End}" />
                 </linearGradient>
             </defs>
             ${bars}

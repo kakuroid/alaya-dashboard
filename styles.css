@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-    /* Core Palette */
+    /* ════════════ DARK THEME (Original) ════════════ */
     --bg-primary: #030308;
     --bg-secondary: #07070f;
     --bg-tertiary: #0c0c18;
@@ -15,14 +15,41 @@
     --surface-3: rgba(255, 255, 255, 0.06);
     --surface-hover: rgba(255, 255, 255, 0.08);
 
-    /* Accent System */
     --accent-primary: #6c5ce7;
     --accent-secondary: #a29bfe;
     --accent-glow: rgba(108, 92, 231, 0.35);
     --accent-gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #74b9ff 100%);
     --accent-gradient-vivid: linear-gradient(135deg, #6c5ce7 0%, #fd79a8 100%);
 
-    /* Status Colors */
+    --text-primary: #f5f6fa;
+    --text-secondary: #8395a7;
+    --text-tertiary: #576574;
+    --text-accent: #a29bfe;
+
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-accent: rgba(108, 92, 231, 0.3);
+
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(108, 92, 231, 0.15);
+
+    /* Shared dims & motion */
+    --sidebar-width: 280px;
+    --header-height: 80px;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-pill: 100px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast: 0.2s;
+    --duration-normal: 0.4s;
+    --duration-slow: 0.8s;
+
+    /* Status (Dark) */
     --status-pending: #fdcb6e;
     --status-pending-bg: rgba(253, 203, 110, 0.1);
     --status-resolved: #00cec9;
@@ -35,39 +62,51 @@
     --status-active-bg: rgba(85, 239, 196, 0.1);
     --status-draft: #b2bec3;
     --status-draft-bg: rgba(178, 190, 195, 0.1);
+}
 
-    /* Text */
-    --text-primary: #f5f6fa;
-    --text-secondary: #8395a7;
-    --text-tertiary: #576574;
-    --text-accent: #a29bfe;
+[data-theme="light"] {
+    /* ════════════ CERC LIGHT THEME ════════════ */
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --surface-1: #ffffff;
+    --surface-2: #f1f5f9;
+    --surface-3: #e2e8f0;
+    --surface-hover: #f1f5f9;
 
-    /* Borders */
-    --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-light: rgba(255, 255, 255, 0.1);
-    --border-accent: rgba(108, 92, 231, 0.3);
+    --accent-primary: #2B4C99; /* CERC Blue */
+    --accent-secondary: #FFD700; /* CERC Gold */
+    --accent-glow: rgba(43, 76, 153, 0.1);
+    --accent-gradient: linear-gradient(135deg, #2B4C99 0%, #4a69bd 100%);
+    --accent-gradient-vivid: linear-gradient(135deg, #2B4C99 0%, #FFD700 100%);
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 40px rgba(108, 92, 231, 0.15);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-accent: #2B4C99;
 
-    /* Dimensions */
-    --sidebar-width: 280px;
-    --header-height: 80px;
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
-    --radius-pill: 100px;
+    --border-subtle: #e2e8f0;
+    --border-light: #cbd5e1;
+    --border-accent: rgba(43, 76, 153, 0.2);
 
-    /* Motion */
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --duration-fast: 0.2s;
-    --duration-normal: 0.4s;
-    --duration-slow: 0.8s;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 20px rgba(43, 76, 153, 0.05);
+
+    /* Status (Light) */
+    --status-pending: #92400e;
+    --status-pending-bg: #fef3c7;
+    --status-resolved: #065f46;
+    --status-resolved-bg: #d1fae5;
+    --status-critical: #991b1b;
+    --status-critical-bg: #fee2e2;
+    --status-review: #1e40af;
+    --status-review-bg: #dbeafe;
+    --status-active: #065f46;
+    --status-active-bg: #d1fae5;
+    --status-draft: #374151;
+    --status-draft-bg: #e5e7eb;
 }
 
 /* ═══════════════ RESET & BASE ═══════════════ */
@@ -81,6 +120,7 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease;
 }
 
 body {
@@ -90,6 +130,7 @@ body {
     min-height: 100vh;
     overflow: hidden;
     line-height: 1.6;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* ═══════════════ ANIMATIONS ═══════════════ */
@@ -118,27 +159,6 @@ body {
     100% { background-position: 200% 0; }
 }
 
-@keyframes countUp {
-    from { opacity: 0; transform: scale(0.5); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(108, 92, 231, 0.1); }
-    50% { box-shadow: 0 0 40px rgba(108, 92, 231, 0.25); }
-}
-
-@keyframes barGrow {
-    from { transform: scaleY(0); }
-    to { transform: scaleY(1); }
-}
-
-@keyframes floatOrb {
-    0%, 100% { transform: translate(0, 0); }
-    33% { transform: translate(30px, -20px); }
-    66% { transform: translate(-20px, 15px); }
-}
-
 /* ═══════════════ LAYOUT ═══════════════ */
 .dashboard-container {
     display: flex;
@@ -151,51 +171,57 @@ body {
     width: var(--sidebar-width);
     background: var(--bg-secondary);
     border-right: 1px solid var(--border-subtle);
-    padding: 2rem 1.25rem;
+    padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 100;
     flex-shrink: 0;
-    transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.sidebar::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--accent-primary), transparent);
-    opacity: 0.3;
+    transition: transform var(--duration-normal) var(--ease-out), background-color 0.3s ease;
 }
 
 .logo {
-    margin-bottom: 3rem;
-    padding: 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+    padding: 0 0.5rem;
     animation: slideInLeft var(--duration-slow) var(--ease-out);
 }
 
+#logo-img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* Logo is white on black, in light mode we might want to invert or just keep it as a branding mark */
+}
+
+[data-theme="light"] #logo-img {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 .logo h1 {
-    font-size: 1.6rem;
-    font-weight: 900;
+    font-size: 1.4rem;
+    font-weight: 800;
     background: var(--accent-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
-    line-height: 1.2;
+    letter-spacing: -0.5px;
+    line-height: 1;
 }
 
 .logo p {
     color: var(--text-tertiary);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 0.4rem;
-    font-weight: 500;
+    letter-spacing: 2px;
+    margin-top: 2px;
+    font-weight: 600;
 }
+
 
 /* Navigation */
 nav ul {
@@ -252,16 +278,55 @@ nav ul li.active::after {
 /* Sidebar Footer */
 .sidebar-footer {
     margin-top: auto;
-    padding: 1.25rem 0.75rem;
+    padding: 1.25rem 0.5rem;
     border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+}
+
+.theme-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--surface-3);
+    border-color: var(--border-accent);
+    transform: scale(1.05);
 }
 
 .sidebar-footer .data-freshness {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-tertiary);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    padding: 0 0.5rem;
 }
 
 .sidebar-footer .data-freshness .pulse-dot {

@@ -16,8 +16,11 @@
         <!-- ═══════ SIDEBAR ═══════ -->
         <aside class="sidebar" id="sidebar">
             <div class="logo">
-                <h1>ALAYA</h1>
-                <p>Legal Intelligence</p>
+                <img src="assets/logo.jpg" alt="Alaya Logo" id="logo-img">
+                <div class="logo-text">
+                    <h1>ALAYA</h1>
+                    <p>Legal Intelligence</p>
+                </div>
             </div>
             <nav>
                 <ul id="nav-menu">
@@ -39,12 +42,19 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
+                <div class="theme-switch-container">
+                    <span class="theme-label">Mode</span>
+                    <button id="theme-toggle" class="theme-toggle-btn">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+                </div>
                 <div class="data-freshness">
                     <span class="pulse-dot"></span>
                     Data last updated: <span id="last-updated"></span>
                 </div>
             </div>
         </aside>
+
 
         <!-- ═══════ MAIN CONTENT ═══════ -->
         <main class="main-content">
