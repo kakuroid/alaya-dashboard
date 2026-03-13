@@ -3,58 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALAYA - Energy Sector Legal Dashboard</title>
+    <title>ALAYA | Energy Legal Intel</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
             <div class="logo">
                 <h1>ALAYA</h1>
-                <p>Legal Pressures Tracker</p>
+                <p>Legal Pressures</p>
             </div>
             <nav>
-                <ul>
-                    <li class="active">Dashboard</li>
-                    <li>Supreme Court</li>
-                    <li>High Courts</li>
-                    <li>Regulations</li>
-                    <li>Analytics</li>
+                <ul id="nav-menu">
+                    <li class="active" data-section="dashboard">
+                        <span>📊</span> Dashboard
+                    </li>
+                    <li data-section="cases">
+                        <span>⚖️</span> Legal Cases
+                    </li>
+                    <li data-section="regulations">
+                        <span>📝</span> Regulations
+                    </li>
+                    <li data-section="analytics">
+                        <span>📈</span> Analytics
+                    </li>
                 </ul>
             </nav>
         </aside>
         
         <main class="main-content">
             <header>
-                <h2>Renewable Energy Sector Cases & Regulations</h2>
-                <div class="user-profile">Admin</div>
+                <div>
+                    <h2>Energy Sector Intelligence</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Tracking 24 high-impact legal developments</p>
+                </div>
+                <div class="user-profile">
+                    <span style="color: var(--success)">●</span>
+                    Admin Terminal
+                </div>
             </header>
 
-            <section class="summary-grid">
-                <div class="card stat-card">
-                    <h3>Pending Cases</h3>
-                    <p class="stat-number">24</p>
-                    <span class="trend up">+4 this week</span>
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view-section active">
+                <div class="summary-grid">
+                    <div class="card stat-card">
+                        <h3>Pending Cases</h3>
+                        <p class="stat-number">24</p>
+                        <span class="trend up">▲ +4 this week</span>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>Supreme Court</h3>
+                        <p class="stat-number">08</p>
+                        <span class="trend" style="color: var(--text-secondary)">6 Critical</span>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>High Courts</h3>
+                        <p class="stat-number">12</p>
+                        <span class="trend" style="color: var(--text-secondary)">8 Stay Orders</span>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>APTEL</h3>
+                        <p class="stat-number">04</p>
+                        <span class="trend" style="color: var(--text-secondary)">2 Tariff Disputes</span>
+                    </div>
                 </div>
-                <div class="card stat-card">
-                    <h3>Supreme Court</h3>
-                    <p class="stat-number">8</p>
-                </div>
-                <div class="card stat-card">
-                    <h3>High Courts</h3>
-                    <p class="stat-number">12</p>
-                </div>
-                <div class="card stat-card">
-                    <h3>Tribunals (APTEL)</h3>
-                    <p class="stat-number">4</p>
+
+                <div class="recent-cases">
+                    <div class="section-title">
+                        <span>Recent Developments</span>
+                        <button style="background: none; border: 1px solid var(--border-color); color: var(--text-primary); padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;">View All</button>
+                    </div>
+                    <div class="case-list" id="recent-case-list">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
             </section>
 
-            <section class="recent-cases">
-                <h3 class="section-title">Recent Developments</h3>
-                <div class="case-list" id="case-list">
-                    <!-- Cases injected via JS -->
+            <!-- Cases View -->
+            <section id="cases" class="view-section">
+                <div class="section-title">All Legal Proceedings</div>
+                <div class="case-list" id="all-case-list">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <!-- Regulations View -->
+            <section id="regulations" class="view-section">
+                <div class="section-title">Regulatory Milestones</div>
+                <div class="case-list" id="regulation-list">
+                    <!-- Similar to cases, injected via JS -->
+                </div>
+            </section>
+
+            <!-- Analytics View -->
+            <section id="analytics" class="view-section">
+                <div class="section-title">Market Pressure Analytics</div>
+                <div class="summary-grid">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3>Volume Trend</h3>
+                        <div class="chart-container">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 35%"></div>
+                                <div class="bar" style="height: 85%"></div>
+                                <div class="bar" style="height: 50%"></div>
+                                <div class="bar" style="height: 75%"></div>
+                                <div class="bar" style="height: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Court Distribution</h3>
+                        <div class="chart-container">
+                            <!-- Circular chart representation or similar -->
+                            <div style="width: 150px; height: 150px; border-radius: 50%; border: 15px solid var(--accent-color); border-top-color: var(--success); border-right-color: var(--warning);"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -62,3 +128,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
