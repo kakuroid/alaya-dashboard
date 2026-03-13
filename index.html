@@ -6,6 +6,9 @@
     <title>ALAYA | Energy Legal Intelligence Dashboard</title>
     <meta name="description" content="Track legal pressures shaping India's energy markets — pending cases across Supreme Court, High Courts, APTEL, CERC with real-time regulatory intelligence.">
     <link rel="stylesheet" href="styles.css">
+    <!-- CesiumJS for Geospatial Intelligence -->
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.115/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.115/Build/Cesium/Cesium.js"></script>
 </head>
 <body>
 
@@ -41,6 +44,9 @@
                     </li>
                     <li data-section="transparency">
                         <span>🔍</span> Transparency
+                    </li>
+                    <li data-section="geospatial">
+                        <span>🌎</span> Geospatial
                     </li>
                 </ul>
             </nav>
@@ -223,6 +229,10 @@
             </section>
 
             <!-- ═══════ TRANSPARENCY VIEW ═══════ -->
+                </div>
+            </section>
+
+            <!-- ═══════ TRANSPARENCY VIEW ═══════ -->
             <section id="transparency" class="view-section">
                 <div class="section-header">
                     <div class="section-title">
@@ -259,6 +269,47 @@
                             <span class="step-icon">🚀</span>
                             <h4>Dashboard</h4>
                             <p>Real-time visualization and trend analysis for stakeholders.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════ GEOSPATIAL VIEW ═══════ -->
+            <section id="geospatial" class="view-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Geospatial Intelligence
+                        <span class="count-badge">CERC Digital Twin</span>
+                    </div>
+                    <div class="map-controls">
+                        <button class="map-btn active" data-map-view="india">India (Macro)</button>
+                        <button class="map-btn" data-map-view="global">Global (Market)</button>
+                        <button class="map-btn" data-map-view="parks">RE Parks (Micro)</button>
+                    </div>
+                </div>
+
+                <div class="map-container-wrapper">
+                    <div id="cesiumContainer"></div>
+                    <div class="map-legend" id="map-legend">
+                        <h4>Market Intensity</h4>
+                        <div class="legend-scale">
+                            <span style="background: rgba(255, 215, 0, 0.8)"></span> Solar Intensity
+                            <span style="background: rgba(108, 92, 231, 0.8)"></span> Regulatory Pressure
+                            <span style="background: rgba(85, 239, 196, 0.8)"></span> Grid Cap Excellence
+                        </div>
+                    </div>
+                    <div class="map-info-panel" id="map-info-panel">
+                        <h3>Sector Insight</h3>
+                        <p id="map-insight-text">Select a region to view regulatory and market progress from the CERC lens.</p>
+                        <div class="insight-stats">
+                            <div class="i-stat">
+                                <span class="i-label">State RPO</span>
+                                <span class="i-val" id="i-rpo">--</span>
+                            </div>
+                            <div class="i-stat">
+                                <span class="i-label">Tariff Avg</span>
+                                <span class="i-val" id="i-tariff">--</span>
+                            </div>
                         </div>
                     </div>
                 </div>
