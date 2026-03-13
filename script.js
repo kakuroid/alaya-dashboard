@@ -720,11 +720,11 @@ async function initGeospatial() {
     const section = document.getElementById('geospatial');
     if (!section) return;
 
-    // Initialize Cesium Viewer
-    // Note: In production, user should provide their own Ion token. 
-    // For this demo, we use the default (which limited but works for testing).
+    // Initialize Cesium Viewer with OpenStreetMap as default to avoid 401 Ion errors
     cesiumViewer = new Cesium.Viewer('cesiumContainer', {
-        terrainProvider: await Cesium.createWorldTerrainAsync(),
+        imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+            url: 'https://a.tile.openstreetmap.org/'
+        }),
         animation: false,
         timeline: false,
         baseLayerPicker: false,
