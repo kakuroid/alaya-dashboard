@@ -39,8 +39,12 @@
                     <li data-section="energy">
                         <span>⚡</span> Energy Data
                     </li>
+                    <li data-section="transparency">
+                        <span>🔍</span> Transparency
+                    </li>
                 </ul>
             </nav>
+
             <div class="sidebar-footer">
                 <div class="theme-switch-container">
                     <span class="theme-label">Mode</span>
@@ -216,8 +220,49 @@
                 <div class="case-list" id="state-list">
                     <!-- State-wise data rendered as list by JS -->
                 </div>
+            <!-- ═══════ TRANSPARENCY VIEW ═══════ -->
+            <section id="transparency" class="view-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Process Transparency & Data Sources
+                        <span class="count-badge">System Integrity</span>
+                    </div>
+                </div>
+
+                <div class="transparency-grid" id="sources-grid">
+                    <!-- Source cards populated by JS -->
+                </div>
+
+                <div class="methodology-card">
+                    <h3>Data Integrity & Methodology</h3>
+                    <p>Alaya utilizes a multi-layer verification process to ensure the legal and energy data presented is reflective of official records. Our intelligence layer periodically scans public registries and cross-references them with industry benchmarks.</p>
+                    
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <span class="step-icon">📡</span>
+                            <h4>Ingestion</h4>
+                            <p>Automated collection from court registries & regulatory gazettes.</p>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-icon">🛡️</span>
+                            <h4>Verification</h4>
+                            <p>Cross-referencing against POSOCO and MNRE installation records.</p>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-icon">💡</span>
+                            <h4>Intelligence</h4>
+                            <p>NLP-based tagging of case issues and impact assessment.</p>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-icon">🚀</span>
+                            <h4>Dashboard</h4>
+                            <p>Real-time visualization and trend analysis for stakeholders.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
+
     </div>
 
     <script src="script.js"></script>

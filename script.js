@@ -23,8 +23,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderRegulations();
     renderAnalytics();
     renderEnergySection();
+    renderTransparency();
     setLastUpdated();
 });
+
+// ═══════ SOURCES DATA ═══════
+const sourcesData = [
+    {
+        name: 'Supreme Court of India',
+        type: 'Registry (Legal)',
+        description: 'Case status, orders, and judgment summaries for landmark energy disputes.',
+        status: 'Online',
+        updated: 'Daily',
+        link: 'https://main.sci.gov.in/'
+    },
+    {
+        name: 'APTEL',
+        type: 'Tribunal (Legal)',
+        description: 'Appellate Tribunal for Electricity rulings and appeal tracking.',
+        status: 'Online',
+        updated: 'Daily',
+        link: 'https://aptel.gov.in/'
+    },
+    {
+        name: 'CERC',
+        type: 'Regulatory (Policy)',
+        description: 'Tariff orders, regulations, and implementation directives.',
+        status: 'Online',
+        updated: 'Real-time',
+        link: 'https://cercind.gov.in/'
+    },
+    {
+        name: 'MNRE / ALMM',
+        type: 'Statistical (Energy)',
+        description: 'Installed capacity by technology and ALMM list compliance.',
+        status: 'Online',
+        updated: 'Monthly',
+        link: 'https://mnre.gov.in/'
+    },
+    {
+        name: 'POSOCO / Grid-Controller',
+        type: 'Operational (Energy)',
+        description: 'Daily RE generation, regional load, and curtailment logs.',
+        status: 'Online',
+        updated: 'Daily',
+        link: 'https://grid-india.in/'
+    },
+    {
+        name: 'State SERCs',
+        type: 'Regional (Regulatory)',
+        description: 'State-wise RPO targets and local utility performance reports.',
+        status: 'Syncing',
+        updated: 'Weekly',
+        link: '#'
+    }
+];
 
 function initTheme() {
     const toggle = document.getElementById('theme-toggle');
@@ -96,7 +149,8 @@ function initNavigation() {
                 cases: `${getFilteredCases().length} proceedings across all forums`,
                 regulations: `${regulationsData.length} regulatory milestones shaping the sector`,
                 analytics: 'Visual intelligence on case distribution and trends',
-                energy: 'Renewable energy capacity and compliance data'
+                energy: 'Renewable energy capacity and compliance data',
+                transparency: 'Audit trail of data sources and system methodology'
             };
             document.getElementById('header-subtitle').textContent = subtitles[sectionId] || '';
 
@@ -109,6 +163,27 @@ function initNavigation() {
     document.getElementById('view-all-cases').addEventListener('click', () => {
         document.querySelector('[data-section="cases"]').click();
     });
+}
+
+function renderTransparency() {
+    const grid = document.getElementById('sources-grid');
+    if (!grid) return;
+
+    grid.innerHTML = sourcesData.map((source, i) => `
+        <div class="source-card" style="animation: fadeInUp 0.5s ${i * 0.1}s var(--ease-out) both;">
+            <div class="source-header">
+                <span class="source-title">${source.name}</span>
+                <span class="source-status status-${source.status.toLowerCase()}">${source.status}</span>
+            </div>
+            <div class="source-body">
+                <p>${source.description}</p>
+            </div>
+            <div class="source-footer">
+                <span class="source-updated">Updated: ${source.updated}</span>
+                <a href="${source.link}" target="_blank" class="source-link">Source Registry ↗</a>
+            </div>
+        </div>
+    `).join('');
 }
 
 // ═══════ SEARCH ═══════
